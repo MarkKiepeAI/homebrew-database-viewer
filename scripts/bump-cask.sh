@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Point Casks/database-viewer.rb at a published arm64 DMG.
+# Point Casks/moledb.rb at a published arm64 DMG.
 # Usage: bash scripts/bump-cask.sh [--print-only] 0.1.3
 set -euo pipefail
 
@@ -41,7 +41,7 @@ fi
 
 owner="MarkKiepe"
 repo="database-viewer"
-asset="Database-Viewer-${version}-arm64.dmg"
+asset="MoleDB-${version}-arm64.dmg"
 case "$asset" in
   *.pkg|*Installer*)
     echo "refusing to use a package installer: ${asset}" >&2
@@ -52,14 +52,14 @@ esac
 api="https://api.github.com/repos/${owner}/${repo}/releases/tags/v${version}"
 url="https://github.com/${owner}/${repo}/releases/download/v${version}/${asset}"
 root="$(cd "$(dirname "$0")/.." && pwd)"
-cask="${root}/Casks/database-viewer.rb"
+cask="${root}/Casks/moledb.rb"
 
 echo "Looking up ${asset}"
 
 if ! meta="$(curl -fsSL \
   -H "Accept: application/vnd.github+json" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  -H "User-Agent: database-viewer-homebrew-tap" \
+  -H "User-Agent: moledb-homebrew-tap" \
   "$api")"; then
   echo "could not read release v${version} on ${owner}/${repo}" >&2
   exit 1
